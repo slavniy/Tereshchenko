@@ -9,7 +9,7 @@ def create_matrix_by_image(name='lab.jpg'):
     for i in range(y):
         row = []
         for j in range(x):
-            r, g, b = pixels[i, j]
+            r, g, b = pixels[j, i]
             if r > 122 and g > 122 and b > 122:
                 el = '.'
             elif r < 122 and g < 122 and b < 122:
@@ -30,7 +30,7 @@ def create_image_by_matrix(matrix, name='lab.jpg'):
     for i in range(y):
         for j in range(x):
             if matrix[i][j] == '$':
-                pixels[i, j] = 0, 255, 0
+                pixels[j, i] = 0, 255, 0
     im.save('route.jpg')
 
 
@@ -58,7 +58,6 @@ def find_start_points(place_map, step):
 
 def traceback(row, col, step):
     while step >= 1:
-        print(step)
         place_map[row][col] = '$'
         step -= 1
         if row - 1 >= 0 and place_map[row - 1][col] == step:
@@ -80,6 +79,7 @@ def print_map(matrix):
 place_map = create_matrix_by_image()
 step = 0
 points = find_start_points(place_map, 'a')
+print(points)
 while points:
     new_points = set()
     step += 1
